@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <div class="d-flex p-3 shadow gap-4">
+    <!-- Formulário -->
+    <div class="col-md-3">
+      <h1 class="text-center">Bloco de Notas Virtual</h1>
+      <div class="mb-3">
+        <label for="title" class="form-label">Título</label>
+        <input type="text" class="form-control" id="title" [(ngModel)]="taskTitle">
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Descrição</label>
+        <textarea class="form-control" id="description" rows="3" [(ngModel)]="taskDescription"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="color" class="form-label">Cor</label>
+        <input type="color" class="form-control custom-color-input" id="color" [(ngModel)]="taskColor">
+      </div>
+      <button class="btn btn-primary" (click)="addTask()">Adicionar</button>
+    </div>
+
+    <!-- Lista de Cards -->
+    <div class="col-md-9" style="overflow-y: auto; max-height: 80vh;">
+      <div class="row m-0">
+        <div class="col-md-4" style="max-width: 100%;" draggable="true" (dragstart)="onDragStart($event, i)" (dragover)="onDragOver($event)" (drop)="onDrop($event)" *ngFor="let task of tasks; let i = index" [attr.data-index]="i.toString()">
+          <div class="card mb-3" [style.background]="task.color">
+            <div class="card-body">
+              <h3 class="card-title bg-white">{{ task.title }}</h3>
+              <p class="card-text bg-white" style="min-height: 50px;">{{ task.description }}</p>
+              <button class="btn btn-danger me-2 circle" (click)="deleteTask(task)">🗑️</button>
+              <button class="btn btn-secondary circle" (click)="editTask(task)">✏️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
